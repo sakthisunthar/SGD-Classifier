@@ -7,11 +7,17 @@ To write a program to predict the type of species of the Iris flower using the S
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+1.Import the required libraries and load the dataset (Salary.csv).
 
+2.Select the independent variable (Level) as feature X and the dependent variable (Salary) as target y.
+
+3.Split the dataset into training data (70%) and testing data (30%).
+
+4.Create and train the Decision Tree Regressor model using the training data.
+
+5.Predict salaries using the test data and evaluate the model using MAE, MSE, RMSE, and R² score.
+
+6.Use the trained model to predict salary for a new input value (e.g., 5 years experience).
 ## Program:
 ```
 /*
@@ -80,6 +86,7 @@ plt.show()
 new_exp = [[5]]  # 5 years experience
 predicted_salary = model.predict(new_exp)
 print("\nPredicted Salary for 5 years experience:", predicted_salary[0])
+
 ## Output:
 ![prediction of iris species using SGD Classifier](sam.png)
 
