@@ -88,7 +88,8 @@ predicted_salary = model.predict(new_exp)
 print("\nPredicted Salary for 5 years experience:", predicted_salary[0])
 ```
 ## Output:
-![prediction of iris species using SGD Classifier](sam.png)
+<img width="783" height="690" alt="Screenshot 2026-03-17 200045" src="https://github.com/user-attachments/assets/d3f7d34f-8762-47e5-97ba-c6b460b33ecf" />
+
 
 
 ## Result:
