@@ -7,17 +7,12 @@ To write a program to predict the type of species of the Iris flower using the S
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1.Import the required libraries and load the dataset (Salary.csv).
-
-2.Select the independent variable (Level) as feature X and the dependent variable (Salary) as target y.
-
-3.Split the dataset into training data (70%) and testing data (30%).
-
-4.Create and train the Decision Tree Regressor model using the training data.
-
-5.Predict salaries using the test data and evaluate the model using MAE, MSE, RMSE, and R² score.
-
-6.Use the trained model to predict salary for a new input value (e.g., 5 years experience).
+1Load the required Python libraries and read the dataset from the CSV file.
+2.Separate the dataset into input features (X) and target output (y), and apply one-hot encoding to handle categorical variables.
+3.Split the dataset into training and testing sets using an appropriate train–test ratio.
+4.Apply feature scaling to the training and testing data using StandardScaler to normalize the feature values.
+5.Initialize the SGD Classifier with suitable parameters and train the model using the scaled training data.
+6.Predict the output for the test dataset and evaluate the model using accuracy score, confusion matrix, and classification report.
 ## Program:
 ```
 /*
@@ -26,69 +21,69 @@ Developed by: k.k.sakthi sunthar
 RegisterNumber: 212225040361 
 */
 
-# Import required libraries
 import pandas as pd
 import numpy as np
-from sklearn.tree import DecisionTreeRegressor, plot_tree
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import SGDClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# Step 1: Load dataset
-df = pd.read_csv("C:/Users/acer/Downloads/Salary.csv")
+data = pd.read_csv("C:/Users/acer/Downloads/Placement_Data (1).csv")
 
-print("Dataset Preview:")
-print(df.head())
+X = data.drop(["status", "salary", "sl_no"], axis=1)
+y = data["status"]
 
-# Step 2: Select features and target
-# Change column names if your CSV has different names
-X = df[["Level"]]   # Independent variable
-y = df["Salary"]              # Dependent variable
+X = pd.get_dummies(X, drop_first=True)
 
-# Step 3: Train-Test Split
+feature_names = X.columns
+
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.3, random_state=42
+    X, y, test_size=0.2, random_state=42
 )
 
-# Step 4: Create Decision Tree Regressor
-model = DecisionTreeRegressor(
-    criterion="squared_error",
-    max_depth=3,
-    random_state=42
+scaler = StandardScaler()
+X_train_scaled = pd.DataFrame(
+    scaler.fit_transform(X_train),
+    columns=feature_names
+)
+X_test_scaled = pd.DataFrame(
+    scaler.transform(X_test),
+    columns=feature_names
 )
 
-# Step 5: Train the model
-model.fit(X_train, y_train)
+model = SGDClassifier(max_iter=1000, tol=1e-3, random_state=42)
 
-# Step 6: Make predictions
-y_pred = model.predict(X_test)
+model.fit(X_train_scaled, y_train)
 
-# Step 7: Evaluate the model
-mse = mean_squared_error(y_test, y_pred)
-rmse = np.sqrt(mse)
+y_pred = model.predict(X_test_scaled)
 
-print("MAE  :", mean_absolute_error(y_test, y_pred))
-print("MSE  :", mse)
-print("RMSE :", rmse)
-print("R2   :", r2_score(y_test, y_pred))
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
 
-# Step 8: Plot Decision Tree
-plt.figure(figsize=(16, 10))
-plot_tree(
-    model,
-    feature_names=["Level"],
-    filled=True
+new_student_dict = dict.fromkeys(feature_names, 0)
+
+new_student_dict['ssc_p'] = 67
+new_student_dict['hsc_p'] = 91
+new_student_dict['degree_p'] = 58
+new_student_dict['etest_p'] = 88
+new_student_dict['mba_p'] = 67
+
+new_student_df = pd.DataFrame([new_student_dict])
+
+new_student_scaled = pd.DataFrame(
+    scaler.transform(new_student_df),
+    columns=feature_names
 )
-plt.title("Decision Tree Regressor for Employee Salary Prediction")
-plt.show()
 
-# Step 9: Predict salary for new employee
-new_exp = [[5]]  # 5 years experience
-predicted_salary = model.predict(new_exp)
-print("\nPredicted Salary for 5 years experience:", predicted_salary[0])
+pred = model.predict(new_student_scaled)
+print("\nPredicted Status:", pred[0])
 ```
 ## Output:
-<img width="783" height="690" alt="Screenshot 2026-03-17 200045" src="https://github.com/user-attachments/assets/d3f7d34f-8762-47e5-97ba-c6b460b33ecf" />
+
+<img width="783" height="424" alt="Screenshot 2026-03-17 201259" src="https://github.com/user-attachments/assets/e888b1f6-d2c9-4056-989e-48051acd79fa" />
 
 
 
