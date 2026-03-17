@@ -25,7 +25,7 @@ Program to implement the prediction of iris species using SGD Classifier.
 Developed by: k.k.sakthi sunthar
 RegisterNumber: 212225040361 
 */
-```
+
 # Import required libraries
 import pandas as pd
 import numpy as np
@@ -86,7 +86,7 @@ plt.show()
 new_exp = [[5]]  # 5 years experience
 predicted_salary = model.predict(new_exp)
 print("\nPredicted Salary for 5 years experience:", predicted_salary[0])
-
+```
 ## Output:
 ![prediction of iris species using SGD Classifier](sam.png)
 
