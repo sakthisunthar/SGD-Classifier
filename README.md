@@ -8,10 +8,15 @@ To write a program to predict the type of species of the Iris flower using the S
 
 ## Algorithm
 1Load the required Python libraries and read the dataset from the CSV file.
+
 2.Separate the dataset into input features (X) and target output (y), and apply one-hot encoding to handle categorical variables.
+
 3.Split the dataset into training and testing sets using an appropriate train–test ratio.
+
 4.Apply feature scaling to the training and testing data using StandardScaler to normalize the feature values.
+
 5.Initialize the SGD Classifier with suitable parameters and train the model using the scaled training data.
+
 6.Predict the output for the test dataset and evaluate the model using accuracy score, confusion matrix, and classification report.
 ## Program:
 ```
